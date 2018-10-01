@@ -11,7 +11,7 @@ class PostsController < ApplicationController
       format.html {render :show}
       format.json {render json:
       @post.to_json(only: [:title, :description, :id], include: [author: {only: [:name]}])}
-    end 
+    end
   end
 
   def new
@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    byebug
     @post = Post.create(post_params)
     @post.save
     redirect_to post_path(@post)
@@ -47,6 +48,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :author_id)
   end
 end
